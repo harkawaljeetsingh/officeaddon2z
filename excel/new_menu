@@ -1,0 +1,35 @@
+Here's a basic example of a simple Excel add-on using VBA. This example will create a new menu in Excel with a custom function. Follow these steps:
+
+Open Excel and press Alt + F11 to open the VBA editor.
+
+Insert a new module by right-clicking on "VBAProject (Your Workbook Name)" and selecting Insert -> Module.
+
+Copy and paste the following code into the module:
+
+' Declare the function
+Function HelloWorld()
+    MsgBox "Hello, World!"
+End Function
+
+' Create a new menu item
+Sub CreateMenu()
+    Dim menuItem As CommandBarButton
+    On Error Resume Next
+    ' Delete the menu item if it already exists
+    Application.CommandBars("Worksheet Menu Bar").Controls("Custom Menu").Delete
+    On Error GoTo 0
+    ' Create a new menu item
+    Set menuItem = Application.CommandBars("Worksheet Menu Bar").Controls.Add(Type:=msoControlPopup, Before:=13)
+    menuItem.Caption = "Custom Menu"
+    ' Add a sub-menu item
+    menuItem.Controls.Add Type:=msoControlButton, Before:=1, ID:=1, Caption:="Say Hello", OnAction:="HelloWorld"
+End Sub
+
+
+Close the VBA editor and return to Excel.
+
+Press Alt + F8 to open the "Macro" dialog.
+
+Select CreateMenu and click "Run."
+
+This will create a new menu in Excel called "Custom Menu" with a sub-menu item "Say Hello." When you click "Say Hello," a message box with the text "Hello, World!" will appear.
